@@ -232,6 +232,8 @@ ival**10
 
 浮点型float，每个浮点数都是双精度64位数,啥意思？？
 
+![](https://github.com/HanMENG15990045033/Python_for_Data_Analysis_Wes_McKinney-/blob/master/cat_yihuo_1.png)
+
 
 ```python
 faval = 3.1415926
