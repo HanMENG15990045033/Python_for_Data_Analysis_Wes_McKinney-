@@ -30,14 +30,14 @@ b = [1, 2, 3]
 b?
 ```
 
-![0201]()
+![0201](https://github.com/HanMENG15990045033/photos/blob/master/0201.PNG)
 
 
 ```python
 print?
 ```
 
-![0202]()
+![0202](https://github.com/HanMENG15990045033/photos/blob/master/0202print.PNG)
 
 
 ```python
@@ -57,14 +57,14 @@ def add_numbers(a, b):
 add_numbers?
 ```
 
-![0203]()
+![0203](https://github.com/HanMENG15990045033/photos/blob/master/0203add_numbers.PNG)
 
 
 ```python
 add_numbers??
 ```
 
-![0204]()
+![0204](https://github.com/HanMENG15990045033/photos/blob/master/0204add_number_2.PNG)
 
 
 ```python
@@ -72,7 +72,7 @@ import numpy as np
 np.*load*?
 ```
 
-![0205]()
+![0205](https://github.com/HanMENG15990045033/photos/blob/master/0205load.PNG)
 
 
 
@@ -598,7 +598,6 @@ a
 
 
 以0开头的数字是八进制，3.7会报错，2.7可以运行
-![0206]()
 
 
 不管了先这样，那么想要轻松打出\
@@ -1170,3 +1169,5 @@ Datetime格式化的详细说明(ISO C89兼容)
 -------------------------------------------
 
 差不多搞定啦，很不易啊，开心(*^▽^*)
+
+![0207](https://github.com/HanMENG15990045033/photos/blob/master/0207_end.jpg)
