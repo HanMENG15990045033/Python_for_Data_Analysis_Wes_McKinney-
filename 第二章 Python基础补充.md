@@ -30,14 +30,14 @@ b = [1, 2, 3]
 b?
 ```
 
-![0201](https://github.com/HanMENG15990045033/photos/blob/master/0201.PNG)
+![0201](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0201.PNG)
 
 
 ```python
 print?
 ```
 
-![0202](https://github.com/HanMENG15990045033/photos/blob/master/0202print.PNG)
+![0202](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0202print.PNG)
 
 
 ```python
@@ -57,14 +57,14 @@ def add_numbers(a, b):
 add_numbers?
 ```
 
-![0203](https://github.com/HanMENG15990045033/photos/blob/master/0203add_numbers.PNG)
+![0203](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0203add_numbers.PNG)
 
 
 ```python
 add_numbers??
 ```
 
-![0204](https://github.com/HanMENG15990045033/photos/blob/master/0204add_number_2.PNG)
+![0204](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0204add_number_2.PNG)
 
 
 ```python
@@ -72,7 +72,7 @@ import numpy as np
 np.*load*?
 ```
 
-![0205](https://github.com/HanMENG15990045033/photos/blob/master/0205load.PNG)
+![0205](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0205load.PNG)
 
 
 
@@ -556,6 +556,7 @@ s ## 注意这种形式是查看变量本身
 
 八进制的24=十六进制的14=十进制的20
 
+![0206](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0206_01_02.PNG)
 
 ```python
 s = '12\\\24'
@@ -1131,7 +1132,6 @@ dt2 + delta
 
 
 
-
     datetime.datetime(2029, 7, 8, 6, 45, 24)
 
 
@@ -1169,5 +1169,5 @@ Datetime格式化的详细说明(ISO C89兼容)
 -------------------------------------------
 
 差不多搞定啦，很不易啊，开心(*^▽^*)
+![0207](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0207_end.jpg)
 
-![0207](https://github.com/HanMENG15990045033/photos/blob/master/0207_end.jpg)
