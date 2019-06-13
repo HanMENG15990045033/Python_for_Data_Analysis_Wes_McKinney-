@@ -1,7 +1,7 @@
 # Python_for_Data_Analysis_Wes_McKinney-
 note for the book Python for Data Analysis: Data Wrangling with Pandas, Numpy, and IPython by Wes McKinney
 
-# 第一章 Anaconda Jupyter notebook
+# 第01章 Anaconda Jupyter notebook
 
 欲练此功，必先自攻安装和基本操作问题。
 
