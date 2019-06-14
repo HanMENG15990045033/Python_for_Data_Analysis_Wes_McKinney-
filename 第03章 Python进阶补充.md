@@ -1272,19 +1272,21 @@ a. value为int
 ```python
 dict_v_int = {0: 10, 1: 20}
 
-dict_v_int.setdefault(2, int)
+dict_v_int.setdefault(3, int) # 我最初的错误
+
+dict_v_int.setdefault(2, 0) # N先生更正
     
 print(dict_v_int)
 ```
 
-    {0: 10, 1: 20, 2: <class 'int'>}
+    {0: 10, 1: 20, 3: <class 'int'>, 2: 0}
     
 
 
 ```python
 dict_v_int_2 = {0: 10, 1: 20}
 
-a_int = dict_v_int_2.setdefault(0, int).bit_length()
+a_int = dict_v_int_2.setdefault(0, 0).bit_length()
 
 ## 将数字转换为二进制，并返回位数
 
@@ -1408,23 +1410,26 @@ set为可变类型
 ```python
 dict_v_set = {0: {1, 2, 3}, 1: {4, 5}}
 
-dict_v_set.setdefault(2, set).union({7,8})
+dict_v_set.setdefault(2, set).union({7,8}) # 我最初的错误
 ## 直接输入大阔号会被默认为字典
+## 输入set是类型，不是空集合
+
+dict_v_set.setdefault(6, set()).union({7,8}) # N先生的更正
 
 print(dict_v_set) 
 ```
 
-    {0: {1, 2, 3}, 1: {4, 5}, 2: <class 'set'>}
+    {0: {1, 2, 3}, 1: {4, 5}, 2: <class 'set'>, 6: set()}
     
 
 
 ```python
-a_set = dict_v_set.setdefault(0, set).union({7,8})
+a_set = dict_v_set.setdefault(0, set()).union({7,8})
 print(dict_v_set) 
 a_set
 ```
 
-    {0: {1, 2, 3}, 1: {4, 5}, 2: <class 'set'>}
+    {0: {1, 2, 3}, 1: {4, 5}, 2: set()}
     
 
 
@@ -1436,78 +1441,63 @@ a_set
 
 
 ```python
-dict_v_set.setdefault(0, set).update({7,8})
+dict_v_set.setdefault(0, set()).update({7,8})
 print(dict_v_set) 
 ```
 
-    {0: {1, 2, 3, 7, 8}, 1: {4, 5}, 2: <class 'set'>}
+    {0: {1, 2, 3, 7, 8}, 1: {4, 5}, 2: set()}
     
 
 
 ```python
-dict_v_set.setdefault(2, set).update({7,8})
+dict_v_set.setdefault(2, set()).update({7,8})
 print(dict_v_set) 
 ```
 
-    {0: {1, 2, 3, 7, 8}, 1: {4, 5}, 2: <class 'set'>}
+    {0: {1, 2, 3, 7, 8}, 1: {4, 5}, 2: {8, 7}}
     
 
-额这个classset为什么不变。。
+为什么呢？
+
+int与0，set与set（）有什么区别呢
 
 ![0304](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0304_yi.png)
 
-这怎么办。。。。先这样
-不论怎么说经过这个一顿操作
 
-setdefault这个东西我们算是认识了
+```python
+type(set)
+```
 
-群里N先生勘误：
 
-dict_v_int_2 = {0: 10, 1: 20}
 
-a_int = dict_v_int_2.setdefault(0, int).bit_length()   
 
-这个不应该用int  该用0
+    type
 
-dict_v_set = {0: {1, 2, 3}, 1: {4, 5}}
 
-dict_v_set.setdefault(2, set()).union({7,8}) 
 
-应该用set() 不是set 如下也是几行也
 
-set() 表示空集合 
+```python
+type(set())
+```
 
-set表示set类型  
 
-用set的话 变成了<class 'set'> 即值为类型 
 
-该类型叫set
+
+    set
+
+
+
+set() 表示空集合，set表示set类型
+
+这里表示的是值
+
+用set的话，变成了<class 'set'> 即值为类型，该类型叫set
 
 用set()就表示是一个值  set类型的空值
 
-print(dict_v_set)
+以上含泪感谢N先生的提示！！
 
-a_set = dict_v_set.setdefault(0, set()).union({7,8})
-
-print(dict_v_set)
-
-print(a_set)
-
-dict_v_set.setdefault(2, set()).update({7,8})
-
-print(dict_v_set)
-
-
-
->>> type(set)
-
-<class 'type'>
-
->>> type(set())
-
-<class 'set'>
-
-感激涕零(๑′ᴗ‵๑)
+整个setdefault理论终于没有瑕疵了TT
 
 3. defaultdict
 
