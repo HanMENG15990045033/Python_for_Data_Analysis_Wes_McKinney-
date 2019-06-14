@@ -1,5 +1,5 @@
 
-# 第03章 内建数据结构、函数及文件
+# 第3章 内建数据结构、函数及文件
 
 这章也是Python，但操作都很6啊！
 
@@ -357,6 +357,18 @@ rest
 
 所以不用rest也行？？那你还叫什么特殊语法
 
+群里N先生解答：
+
+其实起作用的是*号
+
+单个星号代表这个位置接收任意多个非关键字参数
+
+values = 1, 2, 3, 4, 5
+
+a, b, *other =values
+
+rest可以叫其他名字的
+
 
 ```python
 a, b, *_ = values
@@ -374,7 +386,7 @@ a, b
 
 
 
-![0302](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0302_haiyouzhezhongcaozuo.png)
+![0302]()
 
 #### 3.1.1.2 元组方法 count
 
@@ -646,9 +658,6 @@ sorted('horse race')
 也是，根本是把一个序列对应位置的元素组团
 
 既然这么说了，我肯定要搞他一下，看看
-
-![0305](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0305_dainifei.png)
-
 
 
 ```python
@@ -1100,9 +1109,59 @@ key_in_dict(words_2)
     {'a': ['apple'], 'b': ['bat', 'bar']}
     
 
+
 setdefault就是实现上面这个功能
 
+但对于初学者来说
 
+直接看书上的例子好难啊！
+
+![0302](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0302_ruoxiaokelian.jpg)
+
+我们先说一下setdefault本身
+
+参考：
+
+https://www.runoob.com/python/att-dictionary-setdefault.html
+
+
+和前面的get()类似，get替换了一个if-else
+
+setdefault也是替换if-else
+
+不过get()是方法，setdefault是函数
+
+其功能：
+
+如果键不存在于字典中
+
+将会添加键，并设置默认值
+
+基本通式：
+
+some_dict.setdefault(key, default=None)
+
+key：要查的key值
+
+default：如果不在添加key值并默认value值
+
+
+
+
+```python
+dict_1 = {0: 'a', 1: 'b', 2: 'c'}
+dict_1.setdefault(3, None)
+dict_1
+```
+
+
+
+
+    {0: 'a', 1: 'b', 2: 'c', 3: None}
+
+
+
+明确了这个我们再来看书上的例子
 
 
 ```python
@@ -1114,8 +1173,7 @@ for word in words:
     letter = word[0]
     ## 首字母
     by_letter_2.setdefault(letter, []).append(word)
-    ## 字典.setdefaul(首字母，[]).append(单词)
-    ## 记住这个模板
+    ## 字典.setdefault(首字母，默认类型列表).方法添加(字符串)
 
 print(by_letter_2)
 ```
@@ -1123,129 +1181,299 @@ print(by_letter_2)
     {'a': ['apple', 'atom'], 'b': ['bat', 'bar', 'book']}
     
 
-这么说是不是元素是元组也可以？
+发生了什么，跟说好的不一样啊！
 
-作死试一下
+别慌，稳住。
+
+![03008](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0308_wenzhu.png)
+
+经过跟群里小伙伴的讨论，我们提出了
+
+进阶通式：
+
+some_dict.setdefault(key, 【】).append(word)
+
+key：还是你要查的key值
+
+【】：value值的类型
+      
+      还是如果字典没有key默认添加key，
+
+      并设置默认的value值，一般是空，None
+
+      不同在于，这里可以设置了value值的类型
+      
+      变量类型：int、float、str、tuple都是不可变类型
+       
+                list、dict、set是可变类型
+                
+      那么问题来了，所有的类型都可以放在这里吗？
+      
+      一会儿试一下
+      
+ 
+ .append()：对value执行的方法
+      
+      不论key在不在字典中
+      
+      通过setdeafault这波操作
+      
+      都有了一个key
+      
+      .append这就是对这个key对应的元素执行的方法
+      
+      所以理论上，只要是【】有的方法，我们都可以用
+
+
 
 
 ```python
-by_letter_3 = {}
-for word in words:
-    letter = word[0]
-    by_letter_3.setdefault(letter, ()).append(word)
-    
-print(by_letter_3)
+# by_letter_2.setdefault(letter, []).append(word)
+
+# 所以再解释一下这行代码
+
+# 对于by_letter_2这个字典
+
+# 启用setdefault函数
+
+# 查一查里面有没有这个letter，比如apple的首字母a
+
+# 如果有，对a的元素执行append（word）
+
+# 如果没有，字典里加入a这个key值，并将value值设为空列表
+
+# 再对这个空列表执行append（word）
 ```
 
+书上的代码理解了，对setdefault还存在两个疑问
 
-    ---------------------------------------------------------------------------
+一是这个默认value的类型
 
-    AttributeError                            Traceback (most recent call last)
+二是对value执行的方法
 
-    <ipython-input-102-f2be3bf5e39f> in <module>
-          2 for word in words:
-          3     letter = word[0]
-    ----> 4     by_letter_3.setdefault(letter, ()).append(word)
-          5 
-          6 print(by_letter_3)
-    
+要想测试这个，你要熟悉所有的数据类型，及方法
 
-    AttributeError: 'tuple' object has no attribute 'append'
+https://www.cnblogs.com/littlefivebolg/p/8982889.html
 
+企者不立，跨者不行
 
-参考：加油我是最胖的博客园 元组基本操作
+我们踏踏实实针对每个类型
 
-https://www.cnblogs.com/cooled/p/8093218.html
+试一下基础款、进阶款公式
 
-元组不行，元组不支持增删改，只支持查
+不可变类型：int、float、bool、str、tuple
+       
+可变类型：list、dict、set
 
 
-
-咦？那是不是支持增的就可以用？
-
-那我试一下字符串
-
-参考：字符串添加元素，append和+的区别
-
-https://www.cnblogs.com/lordage/p/5700337.html
+a. value为int
 
 
 ```python
-words = ['apple', 'bat', 'bar', 'atom','book']
-by_letter_4 = {}
-for word in words:
-    letter = word[0]
-    by_letter_4.setdefault(letter, str).append(word)
+dict_v_int = {0: 10, 1: 20}
+
+dict_v_int.setdefault(2, int)
     
-print(by_letter_4)
+print(dict_v_int)
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    AttributeError                            Traceback (most recent call last)
-
-    <ipython-input-103-f32bfec54056> in <module>
-          3 for word in words:
-          4     letter = word[0]
-    ----> 5     by_letter_4.setdefault(letter, str).append(word)
-          6 
-          7 print(by_letter_4)
+    {0: 10, 1: 20, 2: <class 'int'>}
     
-
-    AttributeError: type object 'str' has no attribute 'append'
-
-
-失败！
-
-不死心，字典呢？
-
-参考：增加删除字典元素
-
-https://www.cnblogs.com/volcao/p/8695371.html
 
 
 ```python
-words = ['apple', 'bat', 'bar', 'atom','book']
+dict_v_int_2 = {0: 10, 1: 20}
+
+a_int = dict_v_int_2.setdefault(0, int).bit_length()
+
+## 将数字转换为二进制，并返回位数
+
+## 十进制10  = 8*1+4*0+2*1+1*0= 二进制1010
+    
+print(dict_v_int_2)
+
+a_int
+```
+
+    {0: 10, 1: 20}
+    
+
+
+
+
+    4
+
+
+
+太成功了！！
+
+耶！
+
+![0303](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0303_chenggong.jpg)
+
+如果这个成功，其他的理论上都可以
+
+value为float、bool意思一样
+
+b. value为str
+
+
+```python
+dict_v_str = {0: 'a', 1: 'b'} ## 测试字符串
+
+dict_v_str.setdefault(2, '') ## 基础款
+    
+print(dict_v_str)
+```
+
+    {0: 'a', 1: 'b', 2: ''}
+    
+
+
+```python
+dict_v_str_2 = {0: 'a', 1: 'b'}
+
+a = dict_v_str_2.setdefault(0, '').upper() 
+
+## 进阶款
+    
+print(dict_v_str_2) 
+
+a
+```
+
+    {0: 'a', 1: 'b'}
+    
+
+
+
+
+    'A'
+
+
+
+c. value为tuple
+
+   元组为不可修改类型，能进行的操作也不多呀
+
+
+```python
+dict_v_tup = {0: ('a',), 1: ('b', 'c')}
+
+dict_v_tup.setdefault(2, ())
+
+a_tup = dict_v_tup.setdefault(0, ())
+    
+print(dict_v_tup) 
+
+a_tup
+```
+
+    {0: ('a',), 1: ('b', 'c'), 2: ()}
+    
+
+
+
+
+    ('a',)
+
+
+
+d. list例题里见过了，直接看dict
+
+
+```python
+words = ['apple', 'bat', 'bar', 'cat','dog']
 by_letter_5 = {}
 for word in words:
     letter = word[0]
-    by_letter_5.setdefault(letter, {}).update(hhha=word)
+    by_letter_5.setdefault(letter, {}).update(eg=word)
+    ## 但这个eg默认是个字符串，没有办法传递变量
     
 print(by_letter_5)
 ```
 
-    {'a': {'hhha': 'atom'}, 'b': {'hhha': 'book'}}
+    {'a': {'eg': 'apple'}, 'b': {'eg': 'bar'}, 'c': {'eg': 'cat'}, 'd': {'eg': 'dog'}}
     
 
-成功！！太成功了
+e. set作为默认的value类型
+
+set为可变类型
+
+关于set的具体操作后面会介绍
+
+这里简单看一眼
 
 
-![0303](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0303_chenggong.jpg)
+```python
+dict_v_set = {0: {1, 2, 3}, 1: {4, 5}}
+
+dict_v_set.setdefault(2, set).union({7,8})
+## 直接输入大阔号会被默认为字典
+
+print(dict_v_set) 
+```
+
+    {0: {1, 2, 3}, 1: {4, 5}, 2: <class 'set'>}
+    
+
+
+```python
+a_set = dict_v_set.setdefault(0, set).union({7,8})
+print(dict_v_set) 
+a_set
+```
+
+    {0: {1, 2, 3}, 1: {4, 5}, 2: <class 'set'>}
+    
 
 
 
-说明这个setdefault里面的东西理论上都是可以替换的
 
-空列表，生成的元素，使用的方法
+    {1, 2, 3, 7, 8}
 
-都可以换，这么强大嘛
 
-只是用起来脑阔疼
 
-我怀疑字符串也是可以的，只是我不会做
 
-就这样吧 
+```python
+dict_v_set.setdefault(0, set).update({7,8})
+print(dict_v_set) 
+```
 
-不求甚解也许真不是个贬义词
+    {0: {1, 2, 3, 7, 8}, 1: {4, 5}, 2: <class 'set'>}
+    
 
-额，我发现后面还有一个终极大boss
 
+```python
+dict_v_set.setdefault(2, set).update({7,8})
+print(dict_v_set) 
+```
+
+    {0: {1, 2, 3, 7, 8}, 1: {4, 5}, 2: <class 'set'>}
+    
+
+额这个classset为什么不变。。
+
+![0304](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0304_yi.png)
+
+这怎么办。。。。先这样
+
+不论怎么说经过这个一顿操作
+
+setdefault这个东西我们算是认识了
 
 
 3. defaultdict
 
-    这是内建的集合模块，的一个类
+内建集合的一个类，来吧
+
+![0305](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0305_dainifei.png)
+
+get是方法
+
+setdefault是函数
+
+defauldict是类
 
 
 
@@ -1253,8 +1481,9 @@ print(by_letter_5)
 from collections import defaultdict # 导入
 
 by_letter_6 = defaultdict(list)
-## 默认是个空字典？
-## value设置成列表
+## 调用类，定义一个实例
+## 可以理解为空字典
+## 但是默认了key，默认了value的类型为list
 
 for word in words:
     by_letter_6[word[0]].append(word)
@@ -1263,16 +1492,19 @@ for word in words:
 print(by_letter_6)
 ```
 
-    defaultdict(<class 'list'>, {'a': ['apple', 'atom'], 'b': ['bat', 'bar', 'book']})
+    defaultdict(<class 'list'>, {'a': ['apple'], 'b': ['bat', 'bar'], 'c': ['cat'], 'd': ['dog']})
     
 
 #### 3.1.4.3 有效的字典键类型
 
+
 妈呀，第三章对我来说真是全程高能
+
+![0306](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0306.png)
 
 字典，{key: value}
 
-value可以值任何Python对象
+value可以是任何Python对象
 
 key必须是不可变的对象
 
@@ -1353,6 +1585,16 @@ d
     {(1, 2, 3): 5}
 
 
+
+总结
+
+可以哈希化
+
+不可变类型：int、float、bool、str、tuple
+
+不可以哈希化：
+       
+可变类型：list、dict、set
 
 ### 3.1.5 集合
 
@@ -1725,9 +1967,7 @@ a.isdisjoint(c) ## ac无交集
 
 点播一首你和我和他之间
 
-![0304](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0304_nihewoheta.jpg)
-
-
+![0307](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0307_nihewoheta.jpg)
 
 
 
