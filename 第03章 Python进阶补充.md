@@ -1457,11 +1457,57 @@ print(dict_v_set)
 ![0304](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0304_yi.png)
 
 这怎么办。。。。先这样
-
 不论怎么说经过这个一顿操作
 
 setdefault这个东西我们算是认识了
 
+群里N先生勘误：
+
+dict_v_int_2 = {0: 10, 1: 20}
+
+a_int = dict_v_int_2.setdefault(0, int).bit_length()   
+
+这个不应该用int  该用0
+
+dict_v_set = {0: {1, 2, 3}, 1: {4, 5}}
+
+dict_v_set.setdefault(2, set()).union({7,8}) 
+
+应该用set() 不是set 如下也是几行也
+
+set() 表示空集合 
+
+set表示set类型  
+
+用set的话 变成了<class 'set'> 即值为类型 
+
+该类型叫set
+
+用set()就表示是一个值  set类型的空值
+
+print(dict_v_set)
+
+a_set = dict_v_set.setdefault(0, set()).union({7,8})
+
+print(dict_v_set)
+
+print(a_set)
+
+dict_v_set.setdefault(2, set()).update({7,8})
+
+print(dict_v_set)
+
+
+
+>>> type(set)
+
+<class 'type'>
+
+>>> type(set())
+
+<class 'set'>
+
+感激涕零(๑′ᴗ‵๑)
 
 3. defaultdict
 
