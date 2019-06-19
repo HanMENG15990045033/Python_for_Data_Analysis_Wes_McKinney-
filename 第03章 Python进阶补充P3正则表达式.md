@@ -418,7 +418,7 @@ re.split('\W+', '，runoob, runoob,    runoob.')
 
 ##### 8.  (?P...) 分组匹配
 
-功能：分组匹配，返回字典
+功能：分组匹配，一对儿值
 
 通式：((?P 《key》 \pattern) 得到一组对应的值，key：匹配的字符
 
@@ -684,7 +684,9 @@ for value in list_more:
 # 通配符10 ？：0 or 1 of previous expression 0个或多个前面的字符
 # also forces minimal matching when an expression might match several strings within a search string.
 # 非贪婪模式
+import re
 
+list_more = ['acd','abbb','123abbbb','123abb123']
 
 print('ab*贪婪模式：')
 for value in list_more:
@@ -692,9 +694,9 @@ for value in list_more:
     if index_more_1:
         print(index_more_1.group(0))
 
-print('\nab?非贪婪模式：')        
+print('\nab*?非贪婪模式：')        
 for value in list_more:    
-    index_more_3 = re.search('ab?',value)    
+    index_more_3 = re.search('ab*?',value)    
     if index_more_3:
         print(index_more_3.group(0))        
 
@@ -706,11 +708,11 @@ for value in list_more:
     abbbb
     abb
     
-    ab?非贪婪模式：
+    ab*?非贪婪模式：
     a
-    ab
-    ab
-    ab
+    a
+    a
+    a
     
 
 
@@ -835,42 +837,6 @@ for value in list_decimal_digit_2:
     1
     9
     
-
-
-```python
-print('\0')
-print('\04')
-print('\040')
-print('\0407')
-print('\07')
-print('\7')
-print('\79')
-```
-
-     
-    
-     
-     7
-    
-    
-    9
-    
-
-关于这个八进制 
-
-N大佬：
-
-\0 转义到数字0   
-
-\04转义到数字4   
-
-\040 转义到数字0    
-
-\0407转义到数字0
-
-\0xx 转义字符8进制  0后面最多两个数字 
-
-先记到这
 
 \D 
 
