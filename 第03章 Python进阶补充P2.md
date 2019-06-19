@@ -15,6 +15,10 @@
     #result.append(expr)
 ```
 
+
+
+![0309](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0309_zheTMshishenme.jpg)
+
 这TM是个什么东西，看例子
 
 过滤出列表里长度大于2的字符串
@@ -292,6 +296,8 @@ my_function(y=6, x=5, z=7)# 可以换位置
 
 直接按着书上的例子打我是懵的
 
+![0304](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0304_yi.png)
+
 还好群里的小伙伴又救了我
 
 我们学习的课本一般都是先上结论，后给证明
@@ -483,6 +489,8 @@ print(id(a_3_g))
 
 同时注意：变量是否是同一个变量，根本区别是在于id，而不是变量名
 
+![0303](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0303_chenggong.jpg)
+
 #### 从global反思类的意义
 
 这本书的作者真的很好啊
@@ -573,6 +581,8 @@ states = ['   ?alabama!  ', 'FlOrIda', 'south  carolina##', 'West virginia?']
 
 正则表达式re,regular expression
 
+![0309](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0309_zheTMshishenme.jpg)
+
 
 ```python
 import re
@@ -627,3 +637,5 @@ clean_strings(states)
 https://www.runoob.com/python/python-reg-expressions.html
 
 妈呀有点长，长也得掌握
+
+![0308](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0308_wenzhu.png)
