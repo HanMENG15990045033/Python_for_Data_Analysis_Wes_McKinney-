@@ -15,11 +15,9 @@
     #result.append(expr)
 ```
 
-
+这TM是个什么东西，看例子
 
 ![0309](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0309_zheTMshishenme.jpg)
-
-这TM是个什么东西，看例子
 
 过滤出列表里长度大于2的字符串
 
@@ -405,14 +403,14 @@ def func():
     
     
 func()
-print(a_4)
-print(id(a_4))
+print(a_3)
+print(id(a_3))
 ```
 
     [0, 1, 2, 3, 4]
-    1835080777096
+    1847530358856
     []
-    1835081209992
+    1847530359112
     
 
 小结：函数内部操作是否可以改变函数外部变量，也就是全局变量
