@@ -1,10 +1,11 @@
 
 ### 3.2.3.1 正则表达式补充
 
-参考：
+参考RUNOOB.COM:
 
 https://www.runoob.com/python/python-reg-expressions.html
 
+![0301](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0301_action.jpg)
 
 
 折腾的目的：查找某一种字符串
@@ -14,36 +15,42 @@ https://www.runoob.com/python/python-reg-expressions.html
 正则表达式：是一种格式
 
 - 用特殊字符表达某种字符串
-- 比如看abc123查有没有数字，就用\d表示
 - 这是很多语言都通用的一种标准
+- 很多，我们就先记几个
+- \d，0-9的数字
+- a*，一个或多个a，a，aa，aaaa都行
+- [0-9],0-9的数字都行
 
 re：是Python中的模块
 
 - 使得在Python中可以使用所有的正则表达式规则
 
-正则表达式对象
-
-- http://regexlib.com/CheatSheet.aspx
-
-正则表达式修饰符flag很简单
-
-关于flag，修饰符，共6个
-
-- re.I 不考虑大小写
-
-- re.L 本地化识别匹配？？
-
-- re.M 多行匹配，影响^he $
-
-- re.S 影响.,包含换行符
-
-- re.U 根据Unicode字符解析，影响\w,\W,\b,\B
-
-- re.X ....跟利于理解
 
 
-直接看函数共8点加两个例子
 
+本节内容：
+
+1.re.match 匹配开头
+
+2.re.search 全文匹配
+
+3.sub 替换删除
+
+4.re.compile 编译正则
+
+5.findall 返回列表
+
+6.finditer 返回迭代器
+
+7.re.split 分割返回列表
+
+8.(?P...) 分组匹配
+
+9.正则表达符号、修饰符
+
+10.一个综合的例子
+
+![0305](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0305_dainifei.png)
 
 ##### 1. re.match 匹配开头
 
@@ -51,7 +58,7 @@ re：是Python中的模块
 
 通式：re.match(pattern, string, flag=0)，其中
 
-- pattern：正则表达式如a\d
+- pattern：正则表达式如a，如\d代表0-9的数字
 
 - string：要匹配的字符串如abc123
 
@@ -74,6 +81,8 @@ print(re.match('b', 'abc123'))
     
 
 好了现在的问题就是如果匹配，我们返回什么值呢？
+
+![0304](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0304_yi.png)
 
 N先生补充：
 
@@ -112,7 +121,9 @@ if index:
 
 有什么含义？
 
-文档给的例子简直想砍人，最后看
+文档给的例子简直想砍人，最最后看
+
+![0311](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0311_laozigeiniyiquan.jpg)
 
 还是N先生给的例子好
     
@@ -244,7 +255,6 @@ import re
  
 # 将匹配的数字乘以 2
 
-
 def double(matched):
     value = int(matched.group('value'))
     return str(value * 2)
@@ -260,6 +270,8 @@ print(s_2)
     
 
 。。。。想打人怎么办，在线等，挺急的
+
+![0311](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0311_laozigeiniyiquan.jpg)
 
 最后说这个例子
 
@@ -325,7 +337,7 @@ print(m_3.group())
     12
     
 
-##### 5.findall 返回列表
+##### 5. findall 返回列表
 
 功能：全字符串找，匹配，并返回一个列表，否则返回空列表。
 
@@ -408,8 +420,9 @@ re.split('\W+', '，runoob, runoob,    runoob.')
 
 功能：分组匹配，返回字典
 
-通式：((?P<key>\pattern)>>> {key：pattern_s}
+通式：((?P 《key》 \pattern) 得到一组对应的值，key：匹配的字符
 
+使用groupdict函数可以变成字典
 
 
 
@@ -430,75 +443,605 @@ print(res.groupdict())
 
 ？P+group+repl函数
 
+再循环里加几个print看看每步都发生了什么
+
 
 ```python
 import re
  
 
 def double(matched):
-    print(matched)
-    value = int(matched.group('value'))
-    print(value)
-    v_d = matched.groupdict('value')
-    print(v_d)
-    return str(value * 2)
+    
+    print(matched) ## 匹配的字符属性
+    
+    v_d = matched.groupdict('key') ## 试一下匹配的字符用groupdict变成字典格式
+    print(v_d) ## 说明得到的是一对儿数，如 key：23
+    
+    value = int(matched.group('key')) ##  匹配的字符用group（’value’）提出value值
+    print(value) ## 匹配的字符串'23'
+    
+    return str(value * 2) ## 返回 23*2=46，将23替换为46
  
 s = 'A23G4HFD567'
-s_2 = re.sub('(?P<value>\d+)', double, s)
+
+s_2 = re.sub('(?P<key>\d+)', double, s) 
+## 匹配一个以上的数字如23
+## 替换为经double函数处理得到的东西
+## 要处理的字符串是s
 
 print(s_2)
 ```
 
     <re.Match object; span=(1, 3), match='23'>
+    {'key': '23'}
     23
-    {'value': '23'}
     <re.Match object; span=(4, 5), match='4'>
+    {'key': '4'}
     4
-    {'value': '4'}
     <re.Match object; span=(8, 11), match='567'>
-    567
-    {'value': '567'}
-    A46G8HFD1134
-    
-
-
-```python
-import re
-
-def double(mat):
-    value = int(mat.group('id')) 
-    print(value)
-    return str(value * 2)  
-
-s = 'A23G4HFD567' 
-print(re.sub('(?P<id>\d+)', double, s)) 
-```
-
-    23
-    4
+    {'key': '567'}
     567
     A46G8HFD1134
     
 
 OK？先这样。。。
 
-看一个综合的例子
+![0310](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0310_aini.jpg)
+
+萌混过关~
+
+
+##### 9. 正则符号、修饰符
+
+###### Metacharacters Defined 通配符
+
+参考：http://regexlib.com/CheatSheet.aspx
+
+参考：https://baike.baidu.com/item/正则表达式/1700215?fr=aladdin
+
 
 
 ```python
-# 这个算综合题，放到最后
-# 关于这个group里面的数
-# 看个稍微复杂点的例子
+# 通配符1 ^：Start of a string 字符串的开头
 
+import re
+
+list_start_with = ['abcd','abc123','123abc','efgabc','abcdefg']
+
+for value in list_start_with:
+    
+    index_start_with=re.search('^abc',value)
+    if index_start_with:
+        print(value)
+```
+
+    abcd
+    abc123
+    abcdefg
+    
+
+
+```python
+# 通配符2 $：End of a string 字符串的结尾
+
+import re
+
+list_end_with = ['abcd','1abc123','123abc','efgabc','defgabc']
+
+for value in list_end_with:
+    
+    index_end_with = re.search('abc$',value)
+    if index_end_with:
+        print(value)
+```
+
+    123abc
+    efgabc
+    defgabc
+    
+
+
+```python
+# 通配符3 .：Any character (except \n newline) 任何字符，除了换行
+
+import re
+
+list_any_character = ['abcd','afc','123abc','aec','a1c']
+
+for value in list_any_character:
+    
+    index_any_character = re.search('a.c',value)
+    if index_any_character:
+        print(value)
+```
+
+    abcd
+    afc
+    123abc
+    aec
+    a1c
+    
+
+
+```python
+# 通配符4 |：Alternation 或
+
+import re
+
+list_alternation = ['abd','afc','123abc','aec','a1c','12345']
+
+for value in list_alternation:
+    
+    index_alternation = re.search('a|1',value)
+    if index_alternation:
+        print(value)
+```
+
+    abd
+    afc
+    123abc
+    aec
+    a1c
+    12345
+    
+
+
+```python
+# 通配符5 {}：Explicit quantifier notation 明确数量
+
+import re
+
+list_quantifier = ['abd','abbcfc','123abbbbc','abbec','a1c','12345abbccbb']
+
+for value in list_quantifier:
+    
+    index_quantifier = re.search('ab{2}c',value)
+    if index_quantifier:
+        print(value)
+```
+
+    abbcfc
+    12345abbccbb
+    
+
+
+```python
+# 通配符6 []：Explicit set of characters to match 一系列符号
+
+import re
+
+list_set = ['Alien','alien','aLien','aliEn']
+
+for value in list_set:
+    
+    index_set = re.search('[Aa][Ll]ien',value)
+    if index_set:
+        print(value)
+```
+
+    Alien
+    alien
+    aLien
+    
+
+
+```python
+# 通配符7 ()：Logical grouping of part of an expression 一个表达部分的逻辑分组
+
+import re
+
+list_grouping = ['abcabc','123abcabca','abc123',]
+
+for value in list_grouping:
+    
+    index_grouping = re.search('(abc){2}',value)
+    if index_grouping:
+        print(value)
+```
+
+    abcabc
+    123abcabca
+    
+
+
+```python
+# 通配符8 * ：0 or more of previous expression 0个或多个前面的字符，贪婪模式
+# 通配符9 +：1 or more of previous expression 1个或多个前面的字符
+
+import re
+
+list_more = ['acd','abbb','123abbbb','123abb123']
+
+print('ab*：')
+for value in list_more:
+    index_more_1 = re.search('ab*',value)    
+    if index_more_1:
+        print(value)
+
+print('\nab+：')        
+for value in list_more:    
+    index_more_2 = re.search('ab+',value)    
+    if index_more_2:
+        print(value)
+
+
+```
+
+    ab*：
+    acd
+    abbb
+    123abbbb
+    123abb123
+    
+    ab+：
+    abbb
+    123abbbb
+    123abb123
+    
+
+
+```python
+# 通配符10 ？：0 or 1 of previous expression 0个或多个前面的字符
+# also forces minimal matching when an expression might match several strings within a search string.
+# 非贪婪模式
+
+
+print('ab*贪婪模式：')
+for value in list_more:
+    index_more_1 = re.search('ab*',value)    
+    if index_more_1:
+        print(index_more_1.group(0))
+
+print('\nab?非贪婪模式：')        
+for value in list_more:    
+    index_more_3 = re.search('ab?',value)    
+    if index_more_3:
+        print(index_more_3.group(0))        
+
+```
+
+    ab*贪婪模式：
+    a
+    abbb
+    abbbb
+    abb
+    
+    ab?非贪婪模式：
+    a
+    ab
+    ab
+    ab
+    
+
+
+```python
+# 通配符11 \：Preceding one of the above, it makes it a literal instead of a special character. 
+# 让上面的符号变为简单的字符，而不是特殊的功能符号
+# Preceding a special matching character, see below
+# 在一个特殊的匹配符号前，之后再说
+
+import re
+
+list_grouping = ['abc?123','abccc']
+
+for value in list_grouping:  
+    index_grouping = re.search('abc\?',value)
+    if index_grouping:
+        print(value)
+```
+
+    abc?123
+    
+
+内容有点多
+
+![0306](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0306.png)
+
+
+###### 字符组
+
+
+[^aeiou]：
+
+Matches any single character not in the specified set of characters.
+
+匹配不在这里的单个字母
+
+除了a e i o u的其他字母
+
+
+```python
+import re
+
+list_not_in_set = ['abc?123','book','change','aaaa']
+
+for value in list_not_in_set:  
+    index_not_in_set = re.search('[^a]',value)
+    if index_not_in_set:
+        print(index_not_in_set.group(0))
+```
+
+    b
+    b
+    c
+    
+
+[0-9a-fA-F]
+
+Use of a hyphen (–) allows specification of contiguous character ranges.
+
+用 - 可以指明一个连续的字符范围
+
+
+
+
+```python
+import re
+
+list_hyphen = ['0ab','1cd','3ab','0de','abc12abc']
+
+for value in list_hyphen:  
+    index_hyphen = re.search('[0-2][a-c]',value)
+    if index_hyphen:
+        print(index_hyphen.group(0))
+```
+
+    0a
+    1c
+    2a
+    
+
+\d 
+
+Matches any decimal digit. 
+
+十进制数字，相当于[0-9]，其他进制不行
+
+
+```python
+import re
+
+list_decimal_digit = ['0ab','1cd','abc','\042','\x12']
+
+for value in list_decimal_digit:  
+    index_decimal_digit = re.search('\d',value)
+    if index_decimal_digit:
+        print(index_decimal_digit.group(0))
+```
+
+    0
+    1
+    
+
+
+```python
+import re
+
+list_decimal_digit_2 = ['0ab','1cd','abc','\040987','\x12']
+## \040987  按照贪婪法  分为 \040   9 8 7 
+
+for value in list_decimal_digit_2:
+    index_decimal_digit_2 = re.search('\d',value)
+    if index_decimal_digit_2:
+        print(index_decimal_digit_2.group(0))
+
+## '\040789' 是一个字符串吧
+## 按照贪婪法 \040 才是一个有效的转义字符   
+## \04不够贪婪  毕竟\040 也有效    
+## \0407  贪婪过度  转义的八进制最多只能三位
+```
+
+    0
+    1
+    9
+    
+
+
+```python
+print('\0')
+print('\04')
+print('\040')
+print('\0407')
+print('\07')
+print('\7')
+print('\79')
+```
+
+     
+    
+     
+     7
+    
+    
+    9
+    
+
+关于这个八进制 
+
+N大佬：
+
+\0 转义到数字0   
+
+\04转义到数字4   
+
+\040 转义到数字0    
+
+\0407转义到数字0
+
+\0xx 转义字符8进制  0后面最多两个数字 
+
+先记到这
+
+\D 
+
+Matches any nondigit.
+
+非数字，相当于[^0-9]，其他进制也不包括
+
+
+```python
+import re
+
+list_nondigit = ['0ab','1cd','12']
+
+for value in list_nondigit:  
+    index_nondigit = re.search('\D',value)
+    if index_nondigit:
+        print(index_nondigit.group(0))
+```
+
+    a
+    c
+    
+
+\w
+
+Matches any word character. 
+
+任何词汇的字符，相当于[a-zA-Z_0-9]
+
+
+```python
+import re
+
+list_any_word = ['abc','123','ABC','!#','*&']
+
+for value in list_any_word:  
+    index_any_word = re.search('\w',value)
+    if index_any_word:
+        print(index_any_word.group(0))
+```
+
+    a
+    1
+    A
+    
+
+\W
+
+Matches any nonword character. 
+
+非词汇字符，相当于[^a-zA-Z_0-9].
+
+
+```python
+import re
+
+list_any_nonword = ['abc','123','ABC','!#','*&']
+
+for value in list_any_nonword:  
+    index_any_nonword = re.search('\W',value)
+    if index_any_nonword:
+        print(index_any_nonword.group(0))
+```
+
+    !
+    *
+    
+
+\s
+
+Matches any white-space character. 
+
+所有的空白字符换页，换行，回车，Tab，纵向Tab
+
+相当于[ \f\n\r\t\v].
+
+
+```python
+import re
+
+list_white_space = ['ab  c','12\n3','A\tBC','!#\f？','*\v&']
+
+for value in list_white_space:  
+    index_white_space = re.search('\s',value)
+    if index_white_space:
+        print(value)
+```
+
+    ab  c
+    12
+    3
+    A	BC
+    !#？
+    *&
+    
+
+\S
+
+Matches any non-white-space character. 
+
+所有的非空白字符，相当于[^ \f\n\r\t\v].
+
+
+```python
+import re
+
+list_non_white_space = ['   ','\n','\t','\f','\v','abc\n']
+
+for value in list_non_white_space:  
+    index_non_white_space = re.search('\S',value)
+    if index_non_white_space:
+        print(value)
+```
+
+    abc
+    
+    
+
+\p{name} 
+
+扩展子集（元字符）
+
+https://www.cnblogs.com/lcf/articles/807523.html
+
+我的天哪。。。果断跳过
+
+![0302](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0302_ruoxiaokelian.jpg)
+
+\P{name}
+
+Matches text not included in groups and block ranges specified in {name}.
+
+不符合名字格式的
+
+###### 修饰符
+
+关于flag，修饰符，共6个
+
+re.I 不考虑大小写
+
+re.L 本地化识别匹配？？
+
+re.M 多行匹配，影响^he $
+
+re.S 影响.,包含换行符
+
+re.U 根据Unicode字符解析，影响\w,\W,\b,\B
+
+re.X ....跟利于理解
+
+
+
+##### 10. 综合例子
+
+参考文档里的的例子，真的挺难的
+
+
+```python
 import re
 
 line = "Cats are smarter than dogs"
 
-matchObj = re.match( r'(.*) are (.*?) .*', line, re.M|re.I)
+matchObj = re.match( r'(.*) are (.*?) .*', line, re.M|re.I) 
+
+## re.M：多行匹配
+## re.I：不考虑大小写
 
 if matchObj:
     
     print("matchObj.group() : ", matchObj.group())
+    # 整体匹配的字符串：什么 空格are空格 什么 空格 什么
     print("matchObj.group(1) : ", matchObj.group(1))
     # 从开头C到空格are空格，取group（1）
     print("matchObj.group(2) : ", matchObj.group(2))
@@ -514,47 +1057,19 @@ else:
     matchObj.group(2) :  smarter
     
 
-函数：re.match()
-
-正则表达式pattern：
-
-    r：见过，把反斜杠看成是普通的斜杠，而不是转义符号
-    
-    .：匹配任意字符，除了换行符，一个
-    
-    *：匹配多个
-    
-    .*：匹配多个任意，也就是所有字符，除了换行符，贪婪模式，读到最长的停
-    
-    re?：非贪婪模式，从左到右读，读到符合条件的就停
-    
-    .*?：除了换行符，多个任意，非贪婪模式
-    
-    没加括号的.*：跟第一个一样，只是结果不计入group中
-
-flags:
-    
-    re.M：多行匹配
-    
-    re.I：不考虑大小写
-    
-group()：
-
-matchObj.group() 等同于 matchObj.group(0)，表示匹配到的完整文本字符 
-
-matchObj.group(1) 得到第一组匹配结果，也就是(.*)匹配到的 
-
-matchObj.group(2) 得到第二组匹配结果，也就是(.*?)匹配到的 
-
 
 ```python
-# 不加括号的.*，去掉试试
+# 试一下去掉group(2)后面的空格
 
 import re
 
 line = "Cats are smarter than dogs"
 
-matchObj = re.match( r'(.*?) are (.*?)d.*', line, re.M|re.I)
+matchObj = re.match( r'(.*?) are (.*?).*', line, re.M|re.I)
+## 这里从are空格到 .* 之间的东西给（.*？）
+## 而.*取了smarter than dogs
+## 所以（.*？）是个空
+## 即group（2）是个空
 
 if matchObj:
     
@@ -567,33 +1082,40 @@ else:
 
     matchObj.group() :  Cats are smarter than dogs
     matchObj.group(1) :  Cats
-    matchObj.group(2) :  smarter than 
+    matchObj.group(2) :  
     
 
 
 ```python
+# 为了更清楚的看到group取值的顺序，我再改一下
+
 import re
 
-matchObj = re.match( r'(.*?) are (.*?)(.*)(.*)d(.*)', "Cats are smarter than dogs")
+matchObj = re.match( r'(.*?) are (.*?)(.*)d(.*)', "Cats are smarter than dogs")
 
 if matchObj:
     
     print("matchObj.group() : ", matchObj.group())
     print("matchObj.group(1) : ", matchObj.group(1))
     print("matchObj.group(2) : ", matchObj.group(2))
+    ## 匹配are空格和group（3）之间的东西
     print("matchObj.group(3) : ", matchObj.group(3))
+    ## group（3）匹配are空格are和d之间的东西，即smater than空格
+    ## 所以group（2）就是空
     print("matchObj.group(4) : ", matchObj.group(4))
-    print("matchObj.group(5) : ", matchObj.group(5))
+    ## group（4）匹配d之后的，即ogs
+
 ```
 
     matchObj.group() :  Cats are smarter than dogs
     matchObj.group(1) :  Cats
     matchObj.group(2) :  
     matchObj.group(3) :  smarter than 
-    matchObj.group(4) :  
-    matchObj.group(5) :  ogs
+    matchObj.group(4) :  ogs
     
 
+百度里还有很多实际应用的模板，先这样吧
 
+太不易了
 
-
+![0209](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0207_end.jpg)
