@@ -2018,6 +2018,18 @@ arr15.cumsum(axis=0) ## 纵向相加,从0位开始
 
 
 ```python
+arr15.cumsum() ## axis不给值，默认为一维数组
+```
+
+
+
+
+    array([ 0,  1,  3,  6, 10, 15, 21, 28, 36], dtype=int32)
+
+
+
+
+```python
 arr15.cumprod(axis=1) ##  从1未开始乘积，沿着axis=1这个周，也就是横向 
 
 #[0, 1, 2] -- [0,0*1,0*1*2]
@@ -2679,18 +2691,24 @@ rng.randn(100) ## 这该不会是个随机数表吧
 
 ## 4.7 Example: Random Walks 应用举例：随机漫步
 
-这个我们大概见过了
+模拟掷硬币100次，正面为1，反面为-1
 
 
 ```python
 import random
+import matplotlib.pyplot as plt
 position = 0
-walk = [position]
-steps = 1000
+walk = [position] # 这个是个列表 walk=[0]
+steps = 1000 # 准备实验1000次
 for i in range(steps):
     step = 1 if random.randint(0, 1) else -1
+    # random.randint 取0或1
+    # 对应if False，True
+    # 对应step=-1 或 1
     position += step
+    # 比如第一次 0+1 = 1
     walk.append(position)
+    # 得到的值放在walk里，walk=[0,1]
 ```
 
 
@@ -2701,71 +2719,302 @@ plt.figure()
 
 
 
-    <Figure size 720x432 with 0 Axes>
+    <Figure size 432x288 with 0 Axes>
 
 
 
 
-    <Figure size 720x432 with 0 Axes>
+    <Figure size 432x288 with 0 Axes>
 
 
 
 ```python
-plt.plot(walk[:100])
+plt.plot(walk[:100]) # 取前100个画出来
 ```
 
 
 
 
-    [<matplotlib.lines.Line2D at 0x2229ffd3898>]
+    [<matplotlib.lines.Line2D at 0x1a818109160>]
 
 
 
 
-![png](output_206_1.png)
+![png](output_207_1.png)
 
 
 
 ```python
-np.random.seed(12345)
+np.random.seed(12345) 
+# 随便给个起点，保证做出来的随机数跟书上一样
+# 最后解释这个
 ```
 
 
 ```python
-nsteps = 1000
+nsteps = 100
 draws = np.random.randint(0, 2, size=nsteps)
-steps = np.where(draws > 0, 1, -1)
-walk = steps.cumsum()
+# draws = array [1,1,0,0,1,,1...] 比如
+draws
 ```
+
+
+
+
+    array([1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0,
+           0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0,
+           0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1,
+           0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0,
+           1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1])
+
+
+
+
+```python
+steps = np.where(draws > 0, 1, -1)
+# draws > 0 = [True,True,False,False,True,False,True,..]
+# np.where(condition[, x, y]) 函数原型
+# draws的某个位置的为true时，输出x的对应位置的元素，否则选择y对应位置的元素
+# steps = [1,1,-1,-1,1,-1,1...]
+steps
+```
+
+
+
+
+    array([ 1,  1,  1,  1, -1,  1, -1,  1,  1,  1, -1,  1, -1,  1,  1,  1,  1,
+            1, -1,  1, -1, -1, -1, -1,  1, -1,  1,  1,  1, -1, -1,  1, -1, -1,
+           -1,  1, -1, -1,  1, -1,  1,  1,  1, -1, -1, -1,  1,  1,  1, -1,  1,
+            1,  1,  1, -1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,
+            1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1, -1,  1, -1,  1, -1,
+           -1, -1, -1,  1, -1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1])
+
+
+
+
+```python
+walk = steps.cumsum()
+walk
+```
+
+
+
+
+    array([ 1,  2,  3,  4,  3,  4,  3,  4,  5,  6,  5,  6,  5,  6,  7,  8,  9,
+           10,  9, 10,  9,  8,  7,  6,  7,  6,  7,  8,  9,  8,  7,  8,  7,  6,
+            5,  6,  5,  4,  5,  4,  5,  6,  7,  6,  5,  4,  5,  6,  7,  6,  7,
+            8,  9, 10,  9, 10,  9,  8,  9, 10, 11, 12, 13, 14, 15, 16, 15, 16,
+           17, 16, 15, 14, 13, 12, 11, 12, 13, 14, 15, 16, 15, 16, 15, 16, 15,
+           14, 13, 12, 13, 12, 13, 14, 15, 16, 17, 16, 15, 14, 15, 16],
+          dtype=int32)
+
+
 
 
 ```python
 walk.min()
+```
+
+
+
+
+    1
+
+
+
+
+```python
 walk.max()
 ```
 
 
 
 
-    31
+    17
+
+
+
+
+```python
+np.abs(walk) >= 10
+```
+
+
+
+
+    array([False, False, False, False, False, False, False, False, False,
+           False, False, False, False, False, False, False, False,  True,
+           False,  True, False, False, False, False, False, False, False,
+           False, False, False, False, False, False, False, False, False,
+           False, False, False, False, False, False, False, False, False,
+           False, False, False, False, False, False, False, False,  True,
+           False,  True, False, False, False,  True,  True,  True,  True,
+            True,  True,  True,  True,  True,  True,  True,  True,  True,
+            True,  True,  True,  True,  True,  True,  True,  True,  True,
+            True,  True,  True,  True,  True,  True,  True,  True,  True,
+            True,  True,  True,  True,  True,  True,  True,  True,  True,
+            True])
 
 
 
 
 ```python
 (np.abs(walk) >= 10).argmax()
+# 就是最大值第一次出现的位置
+# 也就是Ture第一次出现的位置
 ```
 
 
 
 
-    37
+    17
+
+
+
+### 4.7.1 Simulating Many Random Walks at Once 同时模拟多次随机漫步
+
+这个例子真的很难
+
+![0306](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0306.png)
+
+首先说一下any
+
+
+```python
+trys = np.array([[True,False,True],[False,False,True]])
+trys.any() 
+## 数组看做整体，所有[]去掉
+## 只要有True，就返回一个值True
+```
+
+
+
+
+    True
 
 
 
 
 ```python
-### 4.7.1 Simulating Many Random Walks at Once 同时模拟多次随机漫步
+trys = np.array([[True,False,True],[False,False,True]])
+trys.any(0)
+# 竖着，沿axis=0方向
+# 2*3的数组，剩下1*3
+```
+
+
+
+
+    array([ True, False,  True])
+
+
+
+
+```python
+trys = np.array([[True,False,True],[False,False,True]])
+trys.any(1)
+# 横着，沿axis=1方向
+# 2*3的数组，其实应该是2*1，写成1*2
+```
+
+
+
+
+    array([ True,  True])
+
+
+
+
+```python
+trys = np.array([[True,False,True],[False,False,True]])
+trys.any(2)
+# 你是2*3，只有axis=0和axis=1两个轴
+# 超出范围会报错
+```
+
+
+    ---------------------------------------------------------------------------
+
+    AxisError                                 Traceback (most recent call last)
+
+    <ipython-input-83-4189c69cd6f0> in <module>
+          1 trys = np.array([[True,False,True],[False,False,True]])
+    ----> 2 trys.any(2)
+          3 # 你是2*3，只有axis=0和axis=1两个轴
+          4 # 超出范围会报错
+    
+
+    D:\anaconda\lib\site-packages\numpy\core\_methods.py in _any(a, axis, dtype, out, keepdims)
+         41 
+         42 def _any(a, axis=None, dtype=None, out=None, keepdims=False):
+    ---> 43     return umr_any(a, axis, dtype, out, keepdims)
+         44 
+         45 def _all(a, axis=None, dtype=None, out=None, keepdims=False):
+    
+
+    AxisError: axis 2 is out of bounds for array of dimension 2
+
+
+再说一下布尔值数组的sum
+
+
+```python
+trys = np.array([[True,False,True],[False,False,True]])
+trys.sum()
+```
+
+
+
+
+    3
+
+
+
+
+```python
+trys.sum(0)
+```
+
+
+
+
+    array([1, 0, 2])
+
+
+
+
+```python
+trys.sum(1)
+```
+
+
+
+
+    array([2, 1])
+
+
+
+还得看一下这个argmax
+
+最大值出现的位置
+
+
+```python
+import numpy as np
+trys = np.array([[1, 2, 3],[4, 5, 6]])
+print(trys.argmax()) # 整体看，6出现在5位
+print(trys.argmax(0)) # 竖着看，4，5，6 都出现在1位
+print(trys.argmax(1)) # 横着看，3出现在2位，6出现在2位
+```
+
+    5
+    [1 1 1]
+    [2 2]
+    
+
+
+```python
+OK说这个投掷硬币1000次，5000组实验同时做
 ```
 
 
@@ -2773,21 +3022,51 @@ walk.max()
 nwalks = 5000
 nsteps = 1000
 draws = np.random.randint(0, 2, size=(nwalks, nsteps)) # 0 or 1
-steps = np.where(draws > 0, 1, -1)
-walks = steps.cumsum(1)
-walks
+draws.shape
 ```
 
 
 
 
-    array([[  1,   0,   1, ...,   8,   7,   8],
-           [  1,   0,  -1, ...,  34,  33,  32],
-           [  1,   0,  -1, ...,   4,   5,   4],
+    (5000, 1000)
+
+
+
+
+```python
+steps = np.where(draws > 0, 1, -1)
+steps
+```
+
+
+
+
+    array([[-1, -1,  1, ..., -1,  1, -1],
+           [-1, -1,  1, ...,  1,  1, -1],
+           [ 1, -1,  1, ...,  1, -1,  1],
            ...,
-           [  1,   2,   1, ...,  24,  25,  26],
-           [  1,   2,   3, ...,  14,  13,  14],
-           [ -1,  -2,  -3, ..., -24, -23, -22]], dtype=int32)
+           [-1, -1,  1, ...,  1, -1,  1],
+           [-1,  1, -1, ..., -1, -1,  1],
+           [ 1, -1,  1, ...,  1, -1, -1]])
+
+
+
+
+```python
+walks = steps.cumsum(1)
+walks# 5000*1000 的数组
+```
+
+
+
+
+    array([[ -1,  -2,  -1, ...,  22,  23,  22],
+           [ -1,  -2,  -1, ..., -12, -11, -12],
+           [  1,   0,   1, ..., -28, -29, -28],
+           ...,
+           [ -1,  -2,  -1, ..., -10, -11, -10],
+           [ -1,   0,  -1, ..., -20, -21, -20],
+           [  1,   0,   1, ...,  28,  27,  26]], dtype=int32)
 
 
 
@@ -2799,7 +3078,7 @@ walks.max()
 
 
 
-    138
+    126
 
 
 
@@ -2811,52 +3090,175 @@ walks.min()
 
 
 
-    -133
+    -119
+
+
+
+
+```python
+np.abs(walks) >= 30
+# np.abs(walks)>=30 就会像刚才一样返回一个布尔值的数组 5
+```
+
+
+
+
+    array([[False, False, False, ..., False, False, False],
+           [False, False, False, ..., False, False, False],
+           [False, False, False, ..., False, False, False],
+           ...,
+           [False, False, False, ..., False, False, False],
+           [False, False, False, ..., False, False, False],
+           [False, False, False, ..., False, False, False]])
 
 
 
 
 ```python
 hits30 = (np.abs(walks) >= 30).any(1)
+# trys.any(1)
+# 横着，沿axis=1方向
+# 横着一排判断一次
 hits30
 ```
 
 
 
 
-    array([False,  True, False, ..., False,  True, False])
+    array([ True, False,  True, ...,  True,  True,  True])
 
 
 
 
 ```python
-hits30.sum() # Number that hit 30 or -30
+len(hits30) 
+# 我们这个例子里是5000*1000的数组，any（1），所以是得到1*5000
 ```
 
 
 
 
-    3410
+    5000
+
+
+
+
+```python
+hits30.sum() 
+# Number that hit 30 or -30
+# 就是5000个值里面有多少个true
+# 我觉着是5000组实验里，有多少组跨过了30
+```
+
+
+
+
+    3350
+
+
+
+
+```python
+walks[hits30] 
+# 这里感觉是一个判断的索引
+# N先生提议也可以用键值理解,键存在，输出值，键不存在，值不要
+```
+
+
+
+
+    array([[ -1,  -2,  -1, ...,  22,  23,  22],
+           [  1,   0,   1, ..., -28, -29, -28],
+           [ -1,  -2,  -1, ...,  34,  33,  34],
+           ...,
+           [ -1,  -2,  -1, ..., -10, -11, -10],
+           [ -1,   0,  -1, ..., -20, -21, -20],
+           [  1,   0,   1, ...,  28,  27,  26]], dtype=int32)
+
+
+
+
+```python
+walks[hits30].shape # True的都留下来了，False的都删掉了
+```
+
+
+
+
+    (3350, 1000)
 
 
 
 
 ```python
 crossing_times = (np.abs(walks[hits30]) >= 30).argmax(1)
-crossing_times.mean()
+crossing_times 
+## 在跨过了30的这些组里，第一次出现True的位置
+## 3350个数
 ```
 
 
 
 
-    498.8897360703812
+    array([563, 711, 265, ..., 211, 177, 477], dtype=int64)
 
 
 
 
 ```python
-steps = np.random.normal(loc=0, scale=0.25,
-                         size=(nwalks, nsteps))
+crossing_times.mean()
+## 将这个数取平均值
+```
+
+
+
+
+    504.6683211678832
+
+
+
+#### 正态分布生成随机漫步
+
+loc：float
+    
+    此概率分布的均值（对应着整个分布的中心centre）
+
+scale：float
+    
+    此概率分布的标准差（对应于分布的宽度，scale越大越矮胖，scale越小，越瘦高）
+    
+size：int or tuple of ints
+
+    输出的shape，默认为None，只输出一个值
+
+
+```python
+nwalks3=3
+nsteps3=10
+steps3 = np.random.normal(loc=0, scale=0.25,
+                         size=(nwalks3, nsteps3))
+```
+
+
+```python
+steps3
+```
+
+
+
+
+    array([[ 0.01598319,  0.18542233, -0.01471287, -0.00813775, -0.19089256,
+            -0.25363401, -0.064146  , -0.11737506, -0.46801482,  0.35274173],
+           [ 0.22194935, -0.31826094,  0.00628654, -0.0472256 , -0.01679309,
+            -0.01312635, -0.04690981,  0.11115611,  0.03861635, -0.06608047],
+           [ 0.15196925, -0.13496852,  0.07051793,  0.63197481, -0.11031172,
+             0.01711755, -0.02602593, -0.16913671,  0.13545818, -0.21930289]])
+
+
+
+
+```python
+
 ```
 
 群里小伙伴的远程支援
