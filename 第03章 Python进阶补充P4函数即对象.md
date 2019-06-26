@@ -274,7 +274,11 @@ strings
 
 
 
-list是吧strings变成列表，本身就是列表，所以作用不大
+误：list是吧strings变成列表，本身就是列表，所以作用不大
+
+正：x是列表的里的元素，比如字符串‘foo’
+
+list把foo变成列表['f','o','o']
 
 set是吧列表变为集合，去掉重复元素
 
@@ -1395,11 +1399,11 @@ que más cuidados le ofrece;
 
 然后我在自己的文件里建了txt复制进去
 
-图片
+![0329unicode](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0329Unicode.PNG)
 
 保存的时候该文件含有Unicode字符？？然后我点了取消
 
-图片
+![0339unicode](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0330Unicode.PNG)
 
 我选了unicode
 
@@ -1828,6 +1832,9 @@ for x in lines:
     
     请你睁开眼瞅我多可怜
     
+
+![0331baiyunheitu](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0331baiyunheitu.jpg)
+
 
 ### 重要的Python方法或属性
 
