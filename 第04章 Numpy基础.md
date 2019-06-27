@@ -394,7 +394,7 @@ u4 什么鬼，等会儿再说
 
 ![0319emmm](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0319emmm.png)
 
-### 3.1.3 Arithmetic with NumPy Arrays 数组计算
+### 4.1.3 Arithmetic with NumPy Arrays 数组计算
 
 
 ```python
@@ -1645,6 +1645,8 @@ arccos、arccosh、arcsin、arcsinh、arctan、arctanh 反三角函数
 
 logical_not 对数组的元素取反，相当于~arr
 
+![0305](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0305_dainifei.png)
+
 ### 二元通用函数
 
 也就是针对两个数组进行的操作：
@@ -1776,6 +1778,8 @@ plt.title("Image plot of $\sqrt{x^2 + y^2}$ for a grid of values")
 ![png](output_131_1.png)
 
 
+![0414diantu](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0414点图.PNG)
+
 
 ```python
 plt.draw()
@@ -1820,6 +1824,10 @@ result
 另外如果是多维数组就不行了
 
 所以用下面这个where
+
+![0304](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0304_yi.png)
+
+还真见过。。我看到最后一个例子的时候，忘得一干二净
 
 
 ```python
@@ -2144,10 +2152,11 @@ bools.all() ## 全部为True，这个值为True
 
 
 
-
-```python
 ### 4.3.4 Sorting 排序
-```
+
+这个介绍的不够深啊
+
+
 
 
 ```python
@@ -2323,6 +2332,10 @@ setxor1d(x, y) 在x或在y，不同时在xy中
 ## 4.4 File Input and Output with Arrays 使用数组进行文件输入和输出
 
 这个之后还会用pandas做，所以这里就是简单介绍Numpy的内建二进制模式
+
+![0312](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0312_cat_yihuo_2.png)
+
+虽然不知道这个词儿啥意思
 
 
 ```python
@@ -2642,10 +2655,10 @@ gamma 从伽马分布中抽取样本
 
 uniform 从均匀[0,1)分布中抽取样本
 
-![0413pudaoqiangwen]()
+![0413pudaoqiangwen](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0413pudaoqiangwen.png)
 
 哈哈我咋阵么稀罕你呢呢，开心，老开心了。。。
-![0410](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0413pudaoqiangwen.png)
+
 
 
 ```python
@@ -2766,8 +2779,10 @@ plt.plot(walk[:100]) # 取前100个画出来
 
 
 
-![png](output_207_1.png)
+![png](output_208_1.png)
 
+
+![0405](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0405.PNG)
 
 
 ```python
