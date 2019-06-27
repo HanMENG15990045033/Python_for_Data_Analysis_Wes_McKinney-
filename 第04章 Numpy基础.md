@@ -31,6 +31,10 @@ Numpy的方法比Python快10到100倍
 
 使用的内存也少
 
+所以这么爽的工具，必须拿下
+
+![0406anpai](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0406anpai.png)
+
 ## 4.1 Numpy ndarray：A Multidimensional Array Object 多维数组对象
 
 这个生成多维数组
@@ -111,7 +115,9 @@ data.dtype # 类型
 
 这个比较符合常理
 
-看一眼就明白了
+我来瞅瞅
+
+![0407wochouchou](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0407wochouchuo.png)
 
 #### array 接受序列型对象，生成数组
 
@@ -291,6 +297,8 @@ eye，identity n*n,对角线为1，其余位置为0
 dtype 定义数据类型
 
 astype 转换数据类型
+
+![0408kanzheni](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0408kanzheni.png)
 
 简单，看看代码熟悉一下
 
@@ -737,6 +745,8 @@ x[0]
 
 也没啥，过一遍代码，知道个意思
 
+![0409guaiqiao](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0409guaiqiao.jpg)
+
 
 ```python
 arr3
@@ -882,10 +892,13 @@ arr5d
 
 
 
-
-```python
 ### 4.1.5 布尔索引
-```
+
+我天这个最后用的时候我忘得一干二净
+
+再来好好看一遍
+
+![0410naozijinshui](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0410naozijinshui.png)
 
 
 ```python
@@ -1104,7 +1117,8 @@ data_3
 ```python
 arr = np.empty((8, 4))
 for i in range(8):
-    arr[i] = i
+    arr[i] = i 
+    ## 如arr[0]=0，就是0-7行里面的第0行，全部元素等于0
 arr
 ```
 
@@ -1127,6 +1141,7 @@ arr
 arr[[4, 3, 0, 6]] 
 ## 用列表或数组做索引
 ## 取的就是相应的行
+## 这里取的是axis=0
 ```
 
 
@@ -1181,6 +1196,7 @@ arr[[1, 5, 7, 2], [0, 3, 1, 2]]
 ## （5，3）= 23
 ## （7，1）= 29
 ## （2，2）= 10
+## 这里先取axis=0，再取axis=1
 ```
 
 
@@ -1208,11 +1224,11 @@ arr[[1, 5, 7, 2]][:, [0, 3, 1, 2]]
 
 
 
-
-```python
 ### 4.1.7 Transposing Arrays and Swapping Axes 数组转置和换轴
 
-```
+这个也属于岁月静好的知识点
+
+![0411chongni](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0411chongni.png)
 
 
 ```python
@@ -1384,7 +1400,12 @@ arr_7.swapaxes(1, 2)
 注意这个对数据没有复制
 
 ## 4.2 Universal Functions: Fast Element-Wise Array Functions 
-## 通用函数，就是对数组的每一个数都进行相同处理的函数
+
+通用函数，就是对数组的每一个数都进行相同处理的函数
+
+![0412](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0412.png)
+
+看看
 
 
 ```python
@@ -1658,7 +1679,7 @@ logical_and，logical_or，logical_xor 逻辑操作
 
 ```python
 points = np.arange(-5, 5, 0.1) 
-## 1000 equally spaced points
+## 100 equally spaced points
 ## 从-5到5，精度0.1，共100个数
 points
 ```
@@ -2621,6 +2642,11 @@ gamma 从伽马分布中抽取样本
 
 uniform 从均匀[0,1)分布中抽取样本
 
+![0413pudaoqiangwen]()
+
+哈哈我咋阵么稀罕你呢呢，开心，老开心了。。。
+![0410](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0413pudaoqiangwen.png)
+
 
 ```python
 samples = np.random.normal(size=(4, 4))
@@ -3161,7 +3187,9 @@ hits30.sum()
 ```python
 walks[hits30] 
 # 这里感觉是一个判断的索引
-# N先生提议也可以用键值理解,键存在，输出值，键不存在，值不要
+# https://www.jianshu.com/p/743b3bb340f6
+# 这里是一个布尔索引，跟前面的Fancy Index类似
+# True对应的留下来，False对应的不要
 ```
 
 
@@ -3230,6 +3258,8 @@ scale：float
 size：int or tuple of ints
 
     输出的shape，默认为None，只输出一个值
+    
+![0320baodatui](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0320baodatui.png)
 
 
 ```python
@@ -3255,11 +3285,6 @@ steps3
              0.01711755, -0.02602593, -0.16913671,  0.13545818, -0.21930289]])
 
 
-
-
-```python
-
-```
 
 群里小伙伴的远程支援
 
@@ -3335,7 +3360,4 @@ while(num<6):
     0.6117438629026457
     
 
-
-
 ![0209aini](https://github.com/HanMENG15990045033/photos-for-document/blob/master/0207_end.jpg)
-
